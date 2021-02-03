@@ -1,5 +1,6 @@
 defmodule VisionWeb.BoardLive.Index do
   use VisionWeb, :live_view
+  import Boards.Authorization
 
   alias Vision.Boards
   alias Vision.Boards.Board
@@ -34,10 +35,18 @@ defmodule VisionWeb.BoardLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
-    board = Boards.get_board!(id)
-    {:ok, _} = Boards.delete_board(board)
+    role = socket.assigns.current_user.role
 
-    {:noreply, assign(socket, :boards, list_boards())}
+    board = Boards.get_board!(id)
+
+    with true <- can(role) |> delete?(Board) do
+      {:ok, _} = Boards.delete_board(board)
+
+      {:noreply, assign(socket, :boards, list_boards())}
+    else
+      false ->
+        {:noreply, put_flash(socket, :error, "You're not authorized to do this!")}
+    end
   end
 
   defp list_boards do
