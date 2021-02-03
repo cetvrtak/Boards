@@ -15,6 +15,11 @@ defmodule VisionWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
   scope "/" do
     pipe_through :browser
 
@@ -28,7 +33,7 @@ defmodule VisionWeb.Router do
   end
 
   scope "/", VisionWeb do
-    pipe_through [:browser]
+    pipe_through [:browser, :protected]
 
     live "/boards", BoardLive.Index, :index
     live "/boards/new", BoardLive.Index, :new
