@@ -3,7 +3,7 @@ defmodule Vision.Boards.Board do
   import Ecto.Changeset
 
   schema "boards" do
-    field :members, :string
+    field :members, :map
     field :owner, :string
     field :team_name, :string
     field :title, :string
@@ -14,7 +14,7 @@ defmodule Vision.Boards.Board do
   @doc false
   def changeset(board, attrs) do
     board
-    |> cast(attrs, [:title, :owner, :team_name, :members])
-    |> validate_required([:title, :owner, :team_name, :members])
+    |> cast(attrs, [:title, :owner, :team_name])
+    |> validate_required([:title, :owner, :team_name])
   end
 end
