@@ -5,6 +5,7 @@ defmodule Vision.Members.Member do
   schema "members" do
     field :role, :string
     field :username, :string
+    belongs_to :board, Vision.Boards.Board    
 
     timestamps()
   end

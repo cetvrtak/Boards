@@ -6,6 +6,7 @@ defmodule Vision.Boards.Board do
     field :owner, :string
     field :team_name, :string
     field :title, :string
+    has_many :members, Vision.Members.Member
 
     timestamps()
   end
