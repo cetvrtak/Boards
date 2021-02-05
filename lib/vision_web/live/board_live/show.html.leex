@@ -26,11 +26,6 @@
     <%= @board.team_name %>
   </li>
 
-  <li>
-    <strong>Members:</strong>
-    <%= @board.members %>
-  </li>
-
 </ul>
 
 <span><%= live_patch "Edit", to: Routes.board_show_path(@socket, :edit, @board), class: "button" %></span>
