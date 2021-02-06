@@ -26,6 +26,11 @@
     <%= @board.team_name %>
   </li>
 
+  <li>
+    <strong>Members:</strong>
+    <span><%= live_redirect "Show", to: Routes.member_index_path(@socket, :index) %></span>
+  </li>
+
 </ul>
 
 <span><%= live_patch "Edit", to: Routes.board_show_path(@socket, :edit, @board), class: "button" %></span>
