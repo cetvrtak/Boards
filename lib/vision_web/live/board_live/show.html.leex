@@ -28,7 +28,7 @@
 
   <li>
     <strong>Members:</strong>
-    <%= @board.members %>
+    <span><%= live_redirect "Show", to: Routes.member_index_path(@socket, :index) %></span>
   </li>
 
 </ul>

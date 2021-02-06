@@ -3,10 +3,10 @@ defmodule Vision.Boards.Board do
   import Ecto.Changeset
 
   schema "boards" do
-    field :members, :map
     field :owner, :string
     field :team_name, :string
     field :title, :string
+    has_many :members, Vision.Members.Member
 
     timestamps()
   end

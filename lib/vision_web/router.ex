@@ -43,6 +43,17 @@ defmodule VisionWeb.Router do
     live "/boards/:id/show/edit", BoardLive.Show, :edit
   end
 
+  scope "/", VisionWeb do
+    pipe_through [:browser, :protected]
+
+    live "/members", MemberLive.Index, :index
+    live "/members/new", MemberLive.Index, :new
+    live "/members/:id/edit", MemberLive.Index, :edit
+
+    live "/members/:id", MemberLive.Show, :show
+    live "/members/:id/show/edit", MemberLive.Show, :edit  
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", VisionWeb do
   #   pipe_through :api

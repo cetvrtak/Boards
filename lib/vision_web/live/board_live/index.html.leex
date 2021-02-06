@@ -15,7 +15,6 @@
       <th>Title</th>
       <th>Owner</th>
       <th>Team name</th>
-      <th>Members</th>
 
       <th></th>
     </tr>
@@ -26,7 +25,6 @@
         <td><%= board.title %></td>
         <td><%= board.owner %></td>
         <td><%= board.team_name %></td>
-        <!-- <td><%= board.members %></td> -->
 
         <td>
           <span><%= live_redirect "Show", to: Routes.board_show_path(@socket, :show, board) %></span>
