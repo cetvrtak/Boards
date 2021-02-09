@@ -1,4 +1,4 @@
-<h1>Show Board</h1>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
 <%= if @live_action in [:edit] do %>
   <%= live_modal @socket, VisionWeb.BoardLive.FormComponent,
@@ -9,29 +9,53 @@
     return_to: Routes.board_show_path(@socket, :show, @board) %>
 <% end %>
 
-<ul>
+<div class="row row-cols-1 row-cols-md-6">
+  <div class="card border-success mb-3 mx-3 bg-success text-white">
+    <h5 class="card-title"><%= @board.title %></h5>
+  </div>
+  <div class="card border-success mb-3 mx-3 bg-success text-white">
+    <h5 class="card-title"><%= @board.owner %></h5>
+  </div>
+  <div class="card border-success mb-3 mx-3 bg-success text-white">
+    <h5 class="card-title"><%= @board.team_name %></h5>
+  </div>
+  <div class="card border-success mb-3 mx-3 bg-success text-white">
+    <h5 class="card-title">
+      Members
+      <span><%= live_redirect "Show", to: Routes.member_index_path(@socket, :index) %></span>
+    </h5>
+  </div>
+</div>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @board.title %>
-  </li>
+<div class="row row-cols-1 row-cols-md-6">
+  <%= for list <- Vision.Repo.all(Vision.Lists.List) do %>
+    <div class="card border-success mb-3 mx-3">
+      <div class="card-body">
+        <h3 class="card-header bg-success text-white"><%= list.title %></h3>
 
-  <li>
-    <strong>Owner:</strong>
-    <%= @board.owner %>
-  </li>
+        <%= for task <- list.tasks do %>
+          <div class="card card-title my-3 bg-secondary text-white"><%= task %></div>
+        <% end %>
 
-  <li>
-    <strong>Team name:</strong>
-    <%= @board.team_name %>
-  </li>
+        <a class="card-link"><%= live_redirect "Show", to: Routes.list_show_path(@socket, :show, list) %></a>
+        <a class="card-link"><%= live_patch "Edit", to: Routes.list_index_path(@socket, :edit, list) %></a>
+        <a class="card-link"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: list.id, data: [confirm: "Are you sure?"] %></a>
+      </div>
+    </div>
+  <% end %>
 
-  <li>
-    <strong>Members:</strong>
-    <span><%= live_redirect "Show", to: Routes.member_index_path(@socket, :index) %></span>
-  </li>
+  <div class="col-sm-3"><%= live_patch "New List", to: Routes.list_index_path(@socket, :new) %></div>
+</div>
 
-</ul>
+<!-- <li>
+  <strong>Lists:</strong>
+  <%= for list <- Vision.Repo.all(Vision.Lists.List) do %>
+    <%= list.title %>
+  <%= end %>
+  <span><%= live_redirect "Show", to: Routes.list_index_path(@socket, :index) %></span>
+</li> -->
 
 <span><%= live_patch "Edit", to: Routes.board_show_path(@socket, :edit, @board), class: "button" %></span>
 <span><%= live_redirect "Back", to: Routes.board_index_path(@socket, :index) %></span>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
