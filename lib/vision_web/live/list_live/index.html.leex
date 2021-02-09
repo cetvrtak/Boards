@@ -1,3 +1,5 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
 <h1>Listing Lists</h1>
 
 <%= if @live_action in [:new, :edit] do %>
@@ -9,27 +11,26 @@
     return_to: Routes.list_index_path(@socket, :index, 1) %>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
+<div class="row row-cols-1 row-cols-md-6">
+  <%= for list <- @lists do %>
+    <div class="card border-success mb-3 ms-3">
+      <div class="card-body">
+        <h3 class="card-title"><%= list.title %></h3>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="lists">
-    <%= for list <- @lists do %>
-      <tr id="list-<%= list.id %>">
-        <td><%= list.title %></td>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Cras justo odio</li>
+          <li class="list-group-item">Dapibus ac facilisis in</li>
+          <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
 
-        <td>
-          <span><%= live_redirect "Show", to: Routes.list_show_path(@socket, :show, list) %></span>
-          <span><%= live_patch "Edit", to: Routes.list_index_path(@socket, :edit, list) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: list.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <a class="card-link"><%= live_redirect "Show", to: Routes.list_show_path(@socket, :show, list) %></a>
+        <a class="card-link"><%= live_patch "Edit", to: Routes.list_index_path(@socket, :edit, list) %></a>
+        <a class="card-link"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: list.id, data: [confirm: "Are you sure?"] %></a>
+      </div>
+    </div>
+  <% end %>
 
-<span><%= live_patch "New List", to: Routes.list_index_path(@socket, :new, 1) %></span>
+  <div class="col-sm-3"><%= live_patch "New List", to: Routes.list_index_path(@socket, :new, 1) %></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
