@@ -40,6 +40,7 @@
         <a class="card-link"><%= live_redirect "Show", to: Routes.list_show_path(@socket, :show, list) %></a>
         <a class="card-link"><%= live_patch "Edit", to: Routes.list_index_path(@socket, :edit, list) %></a>
         <a class="card-link"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: list.id, data: [confirm: "Are you sure?"] %></a>
+        <a class="card-link"><%= live_patch "Add Task", to: Routes.task_index_path(@socket, :new) %></a>
       </div>
     </div>
   <% end %>

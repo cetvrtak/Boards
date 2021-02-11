@@ -1,0 +1,8 @@
+<%= if @live_action in [:new] do %>
+  <%= live_modal @socket, VisionWeb.TaskLive.FormComponent,
+    id: @list.id || :new,
+    title: @page_title,
+    action: @live_action,
+    list: @list,
+    return_to: Routes.board_show_path(@socket, :show, 1) %>
+<% end %>

@@ -15,4 +15,9 @@ defmodule Vision.Lists.List do
     |> cast(attrs, [:title, :tasks])
     |> validate_required([:title, :tasks])
   end
+
+  def new_task(list, attrs) do
+    tasks = list.tasks + [attrs]
+    Map.put(list, :tasks, tasks)
+  end
 end

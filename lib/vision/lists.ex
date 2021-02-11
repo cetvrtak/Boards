@@ -101,4 +101,8 @@ defmodule Vision.Lists do
   def change_list(%List{} = list, attrs \\ %{}) do
     List.changeset(list, attrs)
   end
+
+  def add_task(%List{} = list, attrs \\ %{}) do
+    List.new_task(list, attrs)
+  end
 end

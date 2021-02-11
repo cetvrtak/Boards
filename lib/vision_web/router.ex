@@ -63,6 +63,8 @@ defmodule VisionWeb.Router do
 
     live "/lists/:id", ListLive.Show, :show
     live "/lists/:id/show/edit", ListLive.Show, :edit
+
+    live "/lists/tasks/new", TaskLive.Index, :new
   end
 
   # Other scopes may use custom stacks.
